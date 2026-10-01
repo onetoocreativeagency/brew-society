@@ -1,96 +1,109 @@
-# Sitemap v1 — page tree and content blocks
+# Sitemap v2 — page tree, templates and content blocks
 
-Text mirror of the Octopus.do project "Brew Society — Sitemap v1" (id `is4m3g73wo9`), which is the editable source of truth. Keep this file in sync when the Octopus project changes. Earlier FigJam sketch: https://www.figma.com/board/DPYLHR2LWPpg4tRnK4Tn0y
+Text mirror of the Octopus.do project "Brew Society — Sitemap v2" (id `is4m3g73wo9`), which is the editable source of truth. Keep this file in sync when the Octopus project changes. Earlier FigJam sketch (v1, superseded): https://www.figma.com/board/DPYLHR2LWPpg4tRnK4Tn0y
 
 Legend: `→ Pepper` = external link to the wholesale ordering portal. `[TBC]` = client decision pending.
+
+## Principle: one data model, two entry points
+
+Every brand and every product type is a Shopify **collection**, distinguished by a `type` metafield (brand / category). Two collection templates render them. The nav offers two ways in:
+
+- **Brands** → catalogue grouped by brand under product-type headings. Business intent. Leads with "Order wholesale on Pepper".
+- **Shop** → Shopify's built-in all-products collection on the category template, with native filters. Consumer intent. Leads with add to cart.
+
+Budget is tight ($10k), so there are **six designed templates** plus shells. Everything else is a restyled Shopify default.
 
 ## Page tree
 
 ```
-Home                                   /
-├── Brands                             /collections/brands
-│   └── Brand page (template, ×35)     /collections/<brand>
-├── Shop                               /collections/all
-│   ├── Category (template, ×6)        /collections/<category>
-│   └── Product page (template)        /products/<handle>
-│       └── Cart                       /cart
-│           └── Checkout (Shopify)     /checkout
-├── Wholesale                          /pages/wholesale
-├── About [TBC]                        /pages/about
-├── Contact                            /pages/contact
-├── Utility
-│   ├── Search                         /search
-│   ├── Account / Login                /account
-│   ├── Policies (shipping, returns, privacy, terms)   /policies/*
+Home                                                /
+├── Brands (catalogue by brand)                     /collections            list-collections template
+│   └── Brand collection (template, ×35)            /collections/<brand>    collection.brand.json
+├── Shop (all products)                             /collections/all        collection.json
+│   ├── Category collection (template, ×6)          /collections/<type>     collection.json (same as Shop)
+│   └── Buy panel — modal + product page            /products/<handle>      product.json; quick-add modal from any grid
+│       └── Cart drawer                             (/cart exists, restyled minimally)
+│           └── Checkout (Shopify)                  /checkout
+├── Wholesale                                       /pages/wholesale        page.json (generic)
+├── About [TBC]                                     /pages/about            page.json (generic)
+├── Contact                                         /pages/contact          page.contact.json (generic + form)
+├── Utility (Shopify defaults, restyled)
+│   ├── Search                                      /search
+│   ├── Account / Login                             /account
+│   ├── Policies                                    /policies/*             page.json (generic)
 │   └── 404
 └── External
-    └── Pepper wholesale portal        URL TBC
+    └── Pepper wholesale portal                     URL TBC
 ```
 
-Header: logo · Brands · Shop · Wholesale · Contact · search · cart · **Order wholesale** button (→ Pepper).
+Header: logo · Brands · Shop · Wholesale · Contact · search · cart (opens drawer) · **Order wholesale** button (→ Pepper).
 Footer: who-we-supply sentence (independent retail, food service, corporate and office, VIC and NSW) · contact details · Order wholesale (→ Pepper) · Shop · Brands · policies · Instagram [TBC, account access].
+
+## Templates to design (6)
+
+| # | Template | Used by | Notes |
+|---|---|---|---|
+| 1 | Home | `/` | Two-CTA hero, exclusive brands, logo strip, how wholesale works, testimonials, contact CTA |
+| 2 | Catalogue by brand | `/collections` | Brand cards grouped by product type, Exclusive row first, anchor nav. No filter JS |
+| 3 | Brand collection | 35 brand collections | Brand hero from metafields, Pepper primary, product grid with quick add |
+| 4 | Category collection | Shop + 6 type collections | Header variant of 3. Native Shopify filters (type, brand). Add to cart primary |
+| 5 | Buy panel | quick-add modal + `/products/*` | One component. Modal from any grid; product page = panel + description |
+| 6 | Generic page | Wholesale, About, Policies, Contact | Sections the client can reorder. Contact adds the form |
+
+Shells: header, footer, cart drawer. Not designed, restyled Dawn defaults: search, account, 404, checkout (branding only).
 
 ## Blocks per page
 
 ### Home `/`
-1. Hero — headline stating importer + distributor of premium brands; two equal CTAs: **Order wholesale** (→ Pepper) and **Shop direct** (→ Shop).
-2. Exclusive brands — grid of brand cards tagged "Exclusive to Brew Society" (logo, name, category). Link to Brands.
-3. Plus many more — logo strip of other distributed brands (Milklab, BioPak, Tony's, Bonsoy, S.Pellegrino…). Marquee or static grid [design call].
-4. Who we supply — one sentence: independent retail, food service, corporate and office across Victoria and NSW.
-5. How wholesale works — three steps: ABN, $300 minimum, order on Pepper. Secondary line: "Prefer to talk? Pricing within 24 hours." → Contact.
-6. Testimonials — 3 to 6 real quotes with name and business.
-7. Contact CTA — "How can we help?" short form or button → Contact.
-8. Footer.
+1. Hero — importer + distributor statement; two equal CTAs: **Order wholesale** (→ Pepper) and **Shop direct** (→ /collections/all).
+2. Exclusive brands — brand cards tagged "Exclusive to Brew Society". → brand collections.
+3. Plus many more — logo strip of other distributed brands. Marquee or static [design call].
+4. Who we supply — one sentence.
+5. How wholesale works — ABN, $300 minimum, order on Pepper. "Prefer to talk? Pricing within 24 hours." → Contact.
+6. Testimonials — 3 to 6 real quotes.
+7. Contact CTA — "How can we help?" → Contact.
 
-### Brands `/collections/brands`
-1. Page header — title, one line on what the directory is.
-2. Filters — category (Tea & chai, Drinking chocolate, Coffee, Soda & drinks, Alt milk, Snacks, Chocolate & confectionery, Kids, Packaging), Exclusive only toggle, channel (Retail / Food service).
-3. Brand grid — cards: logo, name, category, Exclusive tag, import status. Exclusive brands sort first.
-4. Stock these brands — CTA band: Order wholesale (→ Pepper) · Get pricing (→ Contact).
+### Brands (catalogue) `/collections`
+1. Page header — title, one line, anchor nav to product-type groups (Alt milk, Confectionery, Pantry, Drinks, Coffee, Tea & chai, Snacks, Packaging).
+2. Exclusive to Brew Society — first row of brand cards, exclusives only.
+3. Brands grouped by product type — one row per type. A brand in two types appears in both.
+4. Stock these brands — Order wholesale (→ Pepper) · Get pricing (→ Contact) · "Shopping for home? Browse all products" (→ /collections/all).
 
-### Brand page `/collections/<brand>` (template)
-1. Brand hero — logo, name, tags (category, Exclusive to Brew Society, Imported / Local), one-paragraph summary.
+### Brand collection `/collections/<brand>` (template)
+1. Brand hero — logo, name, tags (type, Exclusive, Imported / Local), summary, **Order wholesale on Pepper** primary, *Get pricing* secondary. From collection metafields.
 2. Brand media — image or video, optional.
-3. Available direct — product grid of this brand's D2C cartons. Hidden when the brand has no D2C products.
-4. Stock this brand — Order wholesale (→ Pepper, deep link if available) · Get pricing (→ Contact).
-5. More exclusive brands — strip of other exclusive brand cards.
+3. Products (quick add) — product cards with quick-add → buy panel modal. Native filters by type. Hidden when no D2C products.
+4. More exclusive brands — card strip.
 
-### Shop `/collections/all`
-1. Page header — title, one line: cartons only, no minimum, shipped Australia-wide [TBC shipping scope].
-2. Category chips — the six category collections.
-3. Product grid — cards: image, brand, name, carton size, price, Exclusive tag.
+### Shop `/collections/all` and Category `/collections/<type>` (one template)
+1. Page header — title, one line (cartons only, no minimum). Category pages: type name + intro.
+2. Native filters — Shopify Search & Discovery: product type, brand, availability.
+3. Product grid (quick add) — image, brand, name, carton size, price, Exclusive tag, quick-add → buy panel.
 4. Wholesale nudge — "Buying for a business? Order wholesale on Pepper."
 
-### Category `/collections/<category>` (template)
-Same as Shop with the grid pre-filtered and a category intro line.
+### Buy panel — modal and `/products/<handle>`
+1. Buy panel (this is the modal) — gallery, brand (→ brand collection), title, carton size and units per carton, price, variant if any, quantity, **Add to cart** (opens drawer), secondary **Order wholesale on Pepper**.
+2. Description — product copy. Standalone page only.
+3. More from this brand — card strip. Standalone page only.
 
-### Product page `/products/<handle>` (template)
-1. Gallery.
-2. Buy box — brand (links to brand page), title, carton size and units per carton, price, quantity, Add to cart.
-3. Description — product copy from the brand.
-4. Wholesale nudge — "Buying for a business? Order wholesale on Pepper."
-5. More from this brand — product strip.
+### Cart drawer
+Slide-in: line items with carton quantities, subtotal, Checkout. Wholesale nudge below. `/cart` page restyled minimally.
 
-### Wholesale `/pages/wholesale`
-1. Intro — who it's for: retailers, cafes, restaurants, offices.
-2. How it works — ABN required, $300 minimum order, order online via Pepper, delivery areas (VIC and NSW).
+### Wholesale `/pages/wholesale` (generic page template)
+1. Intro — who it's for.
+2. How it works — ABN, $300 minimum, order via Pepper, VIC and NSW delivery.
 3. Order wholesale — primary CTA → Pepper.
 4. New account or larger range? — pricing within 24 hours → Contact.
-5. Exclusive brands — short strip.
+5. Exclusive brands — logo strip.
 
-### About `/pages/about` [TBC]
-1. Who we are — importer and distributor, Melbourne, VIC and NSW. Two or three short paragraphs.
-2. Brands we work with — logo strip.
-3. Contact CTA.
+### About `/pages/about` [TBC] (generic page template)
+1. Who we are. 2. Brands we work with (logos). 3. Contact CTA.
 
-### Contact `/pages/contact`
-1. Intro — "How can we help? We'll get back to you with pricing within 24 hours."
+### Contact `/pages/contact` (generic page template + form)
+1. Intro — "How can we help? Pricing within 24 hours."
 2. Form — name, business, email, phone, message. No category radios, no map. Captcha on.
 3. Direct details — email, phone, address, hours.
-4. Shortcut — "Already set up? Order on Pepper."
-
-### Cart `/cart` and Checkout
-Shopify defaults restyled. Cart shows carton quantities and a wholesale nudge.
+4. Already set up? — Order on Pepper →.
 
 ### Utility
-Search, Account/Login, Policies, 404: Shopify defaults restyled, no bespoke blocks.
+Search, Account, Policies (generic page template), 404, Checkout: Shopify defaults restyled, no bespoke blocks.

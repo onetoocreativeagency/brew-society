@@ -7,8 +7,8 @@ Applies at launch when `www.brewsociety.com.au` becomes the Shopify primary doma
 | From (`www.brewsociety.com.au`) | To |
 |---|---|
 | `/` | `/` |
-| `/brands` | `/collections/brands` |
-| `/services/<brand-slug>` (35 pages) | `/collections/<brand-handle>` — handles mostly match the Webflow slugs; map individually once the brand list is final |
+| `/brands` | `/collections` |
+| `/services/<brand-slug>` (35 pages) | `/collections/<brand-handle>` (brand collection template) — handles mostly match the Webflow slugs; map individually once the brand list is final |
 | `/wholesale` | `/pages/wholesale` |
 | `/contact` | `/pages/contact` |
 | `/society` | `/pages/about` (or `/` if About is dropped) |

@@ -37,29 +37,33 @@ Mobile is 60–70% of traffic. One client stakeholder's parent is a reference us
 
 ## 5. Site map (proposed)
 
-Source of truth for the sitemap: Octopus.do project "Brew Society — Sitemap v1" (id `is4m3g73wo9`) in Marcel's account, with content blocks per page. Earlier FigJam sketch: https://www.figma.com/board/DPYLHR2LWPpg4tRnK4Tn0y
+Source of truth for the sitemap: Octopus.do project "Brew Society — Sitemap v2" (id `is4m3g73wo9`) in Marcel's account, with content blocks per page. Text mirror with templates and blocks: `docs/sitemap.md`. Earlier FigJam sketch (v1, superseded): https://www.figma.com/board/DPYLHR2LWPpg4tRnK4Tn0y
+
+**Principle: one data model, two entry points.** Every brand and every product type is a Shopify collection with a `type` metafield. Two collection templates render them. **Brands** in the nav is the business view (catalogue grouped by brand, leads with Pepper). **Shop** is the consumer view (Shopify's all-products collection with native filters, leads with add to cart).
 
 ```
 /                         Home
-/collections/brands       Brands directory (all brands, filterable)   ← see §6 for data model
-/collections/<brand>      Brand page (one per brand)
-/collections/all          Shop (D2C catalogue, cartons only)
-/collections/<category>   Shop by category (tea & chai, drinking chocolate, soda, snacks, chocolate, coffee…)
-/products/<handle>        Product page
-/pages/wholesale          How to order wholesale (ABN, $300 MOQ, Pepper, pricing in 24h) + CTA to Pepper
-/pages/about              Short "who we are" (replaces Society). Optional, TBC
+/collections              Brands — catalogue grouped by brand under product-type headings
+/collections/<brand>      Brand collection template (×35)
+/collections/all          Shop — all products, category template, native filters
+/collections/<type>       Category collection template (×6), same template as Shop
+/products/<handle>        Buy panel: quick-add modal from any grid, and the product page (same component + description)
+/pages/wholesale          How to order wholesale (ABN, $300 MOQ, Pepper, pricing in 24h)
+/pages/about              Short "who we are". Optional, TBC
 /pages/contact            Contact — single free-text form
-/cart, /checkout, /account, /search, /404, policies   Standard Shopify
-→ Pepper portal           External link from header CTA, wholesale page, brand and product pages
+cart drawer, /checkout, /account, /search, /404, policies   Shopify standard, restyled
+→ Pepper portal           External link from header CTA, hero, wholesale, brand and buy panel
 ```
 
-Removed from the current site: `/society`, `/industries/*`, `/wholesale` (becomes `/pages/wholesale`), Webflow checkout pages, Ordermentum links.
+**Six designed templates**, budget-driven: Home, Catalogue by brand, Brand collection, Category collection (header variant of Brand, also serves Shop), Buy panel (modal and product page as one component), Generic page (Wholesale, About, Policies, and Contact with its form). Shells: header, footer, cart drawer. Search, account, 404 and checkout are restyled Dawn defaults.
 
-Header: logo, Brands, Shop, Wholesale, Contact, cart icon, and a persistent **Order wholesale** button to Pepper. Footer: one-sentence "who we supply" (retail, food service, corporate and office across VIC and NSW), contact details, Pepper link, policies, Instagram if the client regains access to the account.
+Removed from the current site: `/society`, `/industries/*`, `/brands` and `/wholesale` (become `/collections` and `/pages/wholesale`), Webflow checkout pages, Ordermentum links.
 
-## 6. Brands directory and brand pages
+Header: logo, Brands, Shop, Wholesale, Contact, search, cart icon (opens drawer), and a persistent **Order wholesale** button to Pepper. Footer: one-sentence "who we supply" (retail, food service, corporate and office across VIC and NSW), contact details, Pepper link, Shop, Brands, policies, Instagram if the client regains access to the account.
 
-This is the core of the B2B site and the landing surface for ads. Marcel's workshop proposal, agreed by the client: a structured, scannable list rather than a wall of logos. Per brand: logo, name, category, exclusive flag, origin/import status, one-line description. Filterable by category and "exclusive to Brew Society". Exclusive brands float to the top.
+## 6. Brands catalogue and brand collections
+
+This is the core of the B2B site and the landing surface for ads. Marcel's workshop proposal, agreed by the client: a structured, scannable list rather than a wall of logos. Per brand: logo, name, category, exclusive flag, origin/import status, one-line description. The catalogue page groups brand cards under product-type headings with an Exclusive row first and an anchor nav, so no filter code is needed. On brand and category pages, Shopify's native Search & Discovery filters (product type, brand) do the filtering for free.
 
 **Recommended data model: one Shopify collection per brand**, with collection metafields for the brand attributes. Why: brand pages then show D2C products natively when they exist, the URL is clean (`/collections/johnny-cashew`), and the client can edit everything in Shopify admin. Brands with no D2C products (BioPak, Milklab) still get a page: logo, description, category, "Order wholesale on Pepper" CTA, and an empty product grid that is simply hidden. Alternative considered: a `brand` metaobject with its own page template. More flexible but a second content model to teach the client and no native product listing. Go with collections unless Marcel disagrees.
 
@@ -76,7 +80,7 @@ Collection metafields (brand):
 | `brand.website` | URL | Optional |
 | `brand.pepper_url` | URL | Deep link into Pepper if Pepper supports it, otherwise portal root. TBC |
 
-Brand page template: hero (logo, name, tags, summary), optional image or video, products available direct (if any, cartons), "Stock this brand" block (Pepper CTA + contact form link), and a strip of other exclusive brands.
+Brand collection template: hero (logo, name, tags, summary, **Order wholesale on Pepper** primary, Get pricing secondary), optional image or video, product grid with quick add (hidden when the brand has no D2C products), and a strip of other exclusive brands. Category collections use a header variant of the same template and also render the Shop page.
 
 **Brands on the current site** (35, from `/services/*`): Allie's Juice, Alternative Dairy Co, BioPak, Bonsoy, Califia Oat, Chow Cacao, Coco Coast, Cocobella, Daelmans Stroopwafels, Dulwich Bakery, Famous Soda Co, Frederick's Coffee, FUNDAY Natural Sweets, Grumpy Bums, Happy Happy Soy Boy, Health Lab, Johnny Cashew, Karma Drinks, Milk Lab, Minor Figures, Nibana, Oatly, Ordinary Beverage Co, Prana Chai, Proper Crisps, S.Pellegrino, Shott, Simply Roasted, Smart Ass, Tea Culture, Tony's Chocolonely, Two Boys Brew, Vivani Organic Chocolate, Wallaby Water, Wild1.
 
@@ -87,8 +91,9 @@ Mentioned in the workshop but not on the site: Pernigotti, "Darwin's" (TBC spell
 - Cartons only. Current store has single units for Vivani (100g bars, 40g snacks) alongside cartons; singles would be removed. **TBC with client** since Vivani singles currently sell.
 - Current catalogue (about 70 live products): Tea Culture (loose leaf, pyramid infusers, chai, matcha, starter packs), Nibana drinking chocolate, Prana Chai 1kg and bundle, Frederick's Coffee beans and pods, Ordinary Soda 12-packs, Simply Roasted crisps 12-packs, Vivani chocolate cartons. To add: the imported exclusives (Johnny Cashew, Pernigotti, others TBC).
 - Prana Chai is the one product with real organic traffic (ranks for "prana chai 1kg"). Keep the handle `/products/prana-chai` and keep the price positioning the client relies on.
-- Product page: carton quantity and unit count clear in the title and a "units per carton" field, exclusive tag where relevant, add to cart, and a secondary "Buying for a business? Order wholesale on Pepper" link.
-- No subscriptions, no wishlist, no reviews app unless the client asks. Collections by category plus the brand collections above.
+- Buy panel, one component in two contexts: Dawn's quick-add modal opens it from any product grid, and the product page shows the same panel with the description below. Contents: gallery, brand link, title, carton size and units per carton, price, variant if any, quantity, add to cart (opens the cart drawer), and a secondary "Order wholesale on Pepper" link. The product page cannot be removed (Shopify always serves it, and the Prana Chai organic traffic lands there), so it has to look finished. The URL does not change when the modal opens.
+- Cart is a drawer, not a page. `/cart` stays as a minimally restyled Shopify default.
+- No subscriptions, no wishlist, no reviews app unless the client asks. Shop is Shopify's built-in all-products collection; category collections (Alt milk, Confectionery, Pantry, Drinks, Coffee, Tea & chai) share its template.
 
 ## 8. Contact and lead handling
 
