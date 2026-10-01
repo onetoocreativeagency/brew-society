@@ -37,6 +37,8 @@ Mobile is 60–70% of traffic. One client stakeholder's parent is a reference us
 
 ## 5. Site map (proposed)
 
+Visual version (FigJam): https://www.figma.com/board/DPYLHR2LWPpg4tRnK4Tn0y
+
 ```
 /                         Home
 /collections/brands       Brands directory (all brands, filterable)   ← see §6 for data model
