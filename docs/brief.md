@@ -37,7 +37,7 @@ Mobile is 60–70% of traffic. One client stakeholder's parent is a reference us
 
 ## 5. Site map (proposed)
 
-Visual version (FigJam): https://www.figma.com/board/DPYLHR2LWPpg4tRnK4Tn0y
+Source of truth for the sitemap: Octopus.do project "Brew Society — Sitemap v1" (id `is4m3g73wo9`) in Marcel's account, with content blocks per page. Earlier FigJam sketch: https://www.figma.com/board/DPYLHR2LWPpg4tRnK4Tn0y
 
 ```
 /                         Home

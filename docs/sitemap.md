@@ -1,6 +1,6 @@
 # Sitemap v1 — page tree and content blocks
 
-Structured version of the sitemap for pushing into Octopus.do (pages, nesting, blocks) and for page-level wireframes in Figma. Mirrors `brief.md` §5 and the FigJam board: https://www.figma.com/board/DPYLHR2LWPpg4tRnK4Tn0y
+Text mirror of the Octopus.do project "Brew Society — Sitemap v1" (id `is4m3g73wo9`), which is the editable source of truth. Keep this file in sync when the Octopus project changes. Earlier FigJam sketch: https://www.figma.com/board/DPYLHR2LWPpg4tRnK4Tn0y
 
 Legend: `→ Pepper` = external link to the wholesale ordering portal. `[TBC]` = client decision pending.
 
