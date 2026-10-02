@@ -23,6 +23,7 @@ Replace three disconnected properties (Webflow marketing site at `www.brewsociet
 - **Kill**: "No more f-ups", "Help us help you", "Blood, sweat and tears", "Empathy over ego", "Fun to work with", "Bundle brands, save big", "The more you buy the more you save", "Meet the brands changing the game" (client doesn't believe it), the Society page and the word "society" as a concept, the Industries pages, the logo marquee of accounts they supply (half aren't customers).
 - **Keep**: "Get pricing within 24 hours" promise (client liked it, and they do deliver on it).
 - **Add**: a clear statement that they import; "exclusive to Brew Society" labelling; social proof via testimonials (real quotes only, client to supply) and the well-known brands they distribute (Milklab, BioPak, Tony's, Bonsoy, S.Pellegrino) even though those aren't retail-focused.
+- **Why Brew Society**: one factual proof block on Home and Wholesale, four points, one line each. Exclusive brands you cannot range elsewhere; built for independent retail; pricing within 24 hours then order online on Pepper; reliable delivery across VIC and NSW. This is the replacement for the old "Why us" copy. Claims are drafts for the client to confirm.
 
 ## 4. Audiences and primary actions
 

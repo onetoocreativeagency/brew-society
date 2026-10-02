@@ -58,10 +58,11 @@ Shells: header, footer, cart drawer. Not designed, restyled Dawn defaults: searc
 1. Hero — importer + distributor statement; two equal CTAs: **Order wholesale** (→ Pepper) and **Shop direct** (→ /collections/all).
 2. Exclusive brands — brand cards tagged "Exclusive to Brew Society". → brand collections.
 3. Plus many more — logo strip of other distributed brands. Marquee or static [design call].
-4. Who we supply — one sentence.
-5. How wholesale works — ABN, $300 minimum, order on Pepper. "Prefer to talk? Pricing within 24 hours." → Contact.
-6. Testimonials — 3 to 6 real quotes.
-7. Contact CTA — "How can we help?" → Contact.
+4. Why Brew Society — four proof points, one line each, no slogans (Dawn multicolumn): exclusive brands you cannot range elsewhere; built for independent retail; pricing within 24 hours then order online on Pepper; reliable delivery across VIC and NSW. Draft claims, client to confirm.
+5. Who we supply — one sentence.
+6. How wholesale works — ABN, $300 minimum, order on Pepper. "Prefer to talk? Pricing within 24 hours." → Contact.
+7. Testimonials — 3 to 6 real quotes.
+8. Contact CTA — "How can we help?" → Contact.
 
 ### Brands (catalogue) `/collections`
 1. Page header — title, one line, anchor nav to product-type groups (Alt milk, Confectionery, Pantry, Drinks, Coffee, Tea & chai, Snacks, Packaging).
@@ -91,10 +92,11 @@ Slide-in: line items with carton quantities, subtotal, Checkout. Wholesale nudge
 
 ### Wholesale `/pages/wholesale` (generic page template)
 1. Intro — who it's for.
-2. How it works — ABN, $300 minimum, order via Pepper, VIC and NSW delivery.
-3. Order wholesale — primary CTA → Pepper.
-4. New account or larger range? — pricing within 24 hours → Contact.
-5. Exclusive brands — logo strip.
+2. Why Brew Society — same four proof points as Home, reused. Optional supplier line: "Looking for an Australian distributor for your brand? Get in touch." [TBC]
+3. How it works — ABN, $300 minimum, order via Pepper, VIC and NSW delivery.
+4. Order wholesale — primary CTA → Pepper.
+5. New account or larger range? — pricing within 24 hours → Contact.
+6. Exclusive brands — logo strip.
 
 ### About `/pages/about` [TBC] (generic page template)
 1. Who we are. 2. Brands we work with (logos). 3. Contact CTA.
